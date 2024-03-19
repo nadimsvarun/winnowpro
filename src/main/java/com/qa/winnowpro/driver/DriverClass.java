@@ -1,5 +1,11 @@
 package com.qa.winnowpro.driver;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -8,23 +14,26 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class DriverClass {
 	
 	public WebDriver driver;
+	public  Properties prop;
 	
-	
-	public WebDriver initializeDriver(String browser) {
+	public WebDriver initializeDriver(Properties prop2) {
 		
-		System.out.println("browser name is"+browser);
+		OptionsManager opt = new OptionsManager(prop2);
 		
-		if(browser.trim().equalsIgnoreCase("chrome")) {
+		//System.out.println("browser name is"+prop2);
+		String browser = prop2.getProperty("browser").trim().toLowerCase();
+		
+		if(browser.equals("chrome")) {
 			
-			driver = new ChromeDriver();
+			driver = new ChromeDriver(opt.getChromeOptions());
 		}
-		else if(browser.trim().equalsIgnoreCase("edge")) {
+		else if(browser.equals("edge")) {
 			
-			driver = new EdgeDriver();
+			driver = new EdgeDriver(opt.getEdgeOptions());
 		}
-       else if(browser.trim().equalsIgnoreCase("firefox")) {
+       else if(browser.equals("firefox")) {
 			
-			driver = new FirefoxDriver();
+			driver = new FirefoxDriver(opt.getFirefoxOptions());
 		}
 	else {
 		
@@ -33,9 +42,27 @@ public class DriverClass {
 		
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
-		driver.get("https://ftest.winnowpro.com/");
+		System.out.println(prop2.getProperty("url"));
+		driver.get(prop2.getProperty("url"));
 		return driver;
 	}
 	
+	public Properties initprop() {
+		
+		prop = new Properties();
+		FileInputStream fil;
+		try {
+			fil = new FileInputStream(".\\src\\test\\resources\\Config\\config.properties");
+		
+			prop.load(fil);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return prop;
+	    
+	
 
+	}
 }

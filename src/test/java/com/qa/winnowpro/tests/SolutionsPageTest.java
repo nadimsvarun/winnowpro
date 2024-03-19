@@ -1,5 +1,6 @@
 package com.qa.winnowpro.tests;
 
+
 import java.util.List;
 
 import org.testng.Assert;
@@ -26,9 +27,10 @@ public class SolutionsPageTest extends BaseTest{
 	}
 	
 	@Test
-	public void checkpainpoints() {
+	public void checkpainpoints() throws InterruptedException {
 		
 		sp.movetopainpointsheader();
+		Thread.sleep(3000);
 		List<String> pp = sp.checkpainpointstext();
 		Assert.assertEquals(pp.get(0),"IMPROVE"+'\n'+"LEAD QUALITY");
 		

@@ -23,7 +23,7 @@ public class LandingPageTest extends BaseTest{
 	public void loginpageurltest() {
 		
 		String acturl = lp.getloginpageurl();
-		Assert.assertTrue(acturl.contains("https://ftest.winnowpro.com/"));
+		Assert.assertTrue(acturl.contains("https://fprod.winnowpro.com/"));
 		
 	}
 	

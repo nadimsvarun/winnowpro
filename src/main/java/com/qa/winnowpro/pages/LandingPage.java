@@ -10,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.qa.winnowpro.constant.Constant;
 import com.qa.winnowpro.util.Elementutil;
 
 public class LandingPage {
@@ -36,7 +37,7 @@ public class LandingPage {
 	
 	private By solutionlink = By.cssSelector("div>nav>div:nth-child(1)>div>div>a");
 	
-	private By contactuslink = By.cssSelector("div>nav>div:nth-child(5)>div>div>a");
+	private By contactuslink = By.linkText("CONTACT US");
 	
 	private By form = By.cssSelector("form[name='wf-form-Home-Page-Contact-Form']");
 	// page constructor should be used
@@ -73,7 +74,7 @@ public class LandingPage {
 	
 	public void enterdatainform(String name,String lastname,String email) {
 		
-		   eutil.entertext(eutil.findelement(formname, 5),name);
+		   eutil.entertext(eutil.findelement(formname, Constant.MID_TIMEOUT),name);
 		   eutil.entertext(formlname, lastname);
 		   eutil.entertext(formemail, email);
 		
@@ -83,24 +84,22 @@ public class LandingPage {
 	public SolutionsPage clickonsolution() {
 		
 	
+		eutil.clickonelement(solutionlink);
 		
-		driver.findElement(solutionlink).click();
 		return new SolutionsPage(driver);
 	}
 	
 	public void scrolltoelement() {
 		
-		Actions act = new Actions(driver);
+		eutil.navigatetoelement(form, driver);
 		
-		WebElement el = driver.findElement(form);
 		
-		act.moveToElement(el).perform();
 	}
 	
 	public ContactUsPage clickoncontactus() {
 		
-		driver.findElement(contactuslink).click();
 		
+		eutil.clickonelement(contactuslink);
 		
 		return new ContactUsPage(driver);
 	}

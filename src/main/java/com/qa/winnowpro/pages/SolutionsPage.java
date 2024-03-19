@@ -11,14 +11,17 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.qa.winnowpro.constant.Constant;
+import com.qa.winnowpro.util.Elementutil;
+
 
 public class SolutionsPage {
 	
 	private WebDriver driver;
-	
+	Elementutil eutil;
 
  private By letstalk = By.cssSelector("div.main-section>div:nth-child(1)>div>div:nth-child(1)>a");
- private By painpoints = By.cssSelector("div.main-section>div:nth-child(5)>div>div:nth-child(6)>div>a>h3");
+ private By painpoints = By.xpath("(//h3[contains(text(),'select your pain points')]/following-sibling::div[2])/div/a/h3");
  private By clickhomepage = By.cssSelector("div.new-header>div>div:nth-child(1)>a");
  private By painpointsheader = By.cssSelector("div.main-section>div:nth-child(5)>div>h3:nth-child(4)");	
  
@@ -27,40 +30,54 @@ public class SolutionsPage {
 		// TODO Auto-generated constructor stub
 		
 		this.driver = driver;
+		eutil = new Elementutil(driver);
 		
 	}
 	
 	
 	public boolean checkletstalkbtn() {
 		
-		return driver.findElement(letstalk).isEnabled();
+		
+		 return eutil.elementenabled(letstalk);
+		
+		
+		
 	}
 	
 	
 	public List<String> checkpainpointstext() {
 		
-		List<WebElement> list = driver.findElements(painpoints);
-		System.out.println("size="+list.size());
-		
-		List<String> s = new ArrayList<String>();
-		for(WebElement i : list) {
-			s.add(i.getAttribute("innerText"));
+		List<WebElement> list = eutil.findelements(painpoints);
+		List<String> text = new ArrayList<String>();
+		for(WebElement x : list) {
+			
+			System.out.println(x.getText());
+			text.add(x.getText());
 		}
+	   
+	   
+	   System.out.println(text.size());
+	   return text;
 		
-		return s;
+		//return eutil.getelementsinnertext(painpoints, Constant.MAX_TIMEOUT);
+		
+		
 		
 	}
 	
 	
 	public void gotohomepage() {
 		
-		driver.findElement(clickhomepage).click();
+		eutil.clickonelement(clickhomepage);
+		
+		
 	}
 	
 	public void movetopainpointsheader() {
 		
-		Actions act = new Actions(driver);
-		act.moveToElement(driver.findElement(painpointsheader)).perform();
+		eutil.navigatetoelement(painpointsheader, driver);
+		
+		
 	}
 	
 

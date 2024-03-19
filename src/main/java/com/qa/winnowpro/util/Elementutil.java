@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Elementutil {
@@ -53,6 +54,48 @@ public class Elementutil {
 		return waitforvisibilityofallelements(locator, timeout);
 	}
 	
+	public boolean elementenabled(By locator) {
+		
+		return findelement(locator).isEnabled();
+		
+	}
+	
+	//select tag
+	
+	public void clickonselectandchoose(By locator, String ele) {
+		
+		Select sel = new Select(findelement(locator));
+		
+		sel.selectByVisibleText(ele);
+		
+		
+	}
+	 //select check box/ radio btn  by text
+	
+	public void selectbytext(By element ,String attr, String text) {
+		
+		  List<WebElement> ele = findelements(element);
+		  for(WebElement el :ele) {
+			
+			String txt = el.getAttribute(attr);
+			System.out.println(txt);
+			if(txt.equalsIgnoreCase(text)){
+				
+				
+				 el.click();
+						
+				
+			}
+		}
+	}
+	
+	//element visible
+	
+	public boolean iselementvisible(By element) {
+		
+		 return driver.findElement(element).isDisplayed();
+	}
+	
 	
 	////enter text
 	
@@ -94,6 +137,23 @@ public class Elementutil {
 		
 	}
 	
+   public List<String> getelementsinnertext(By locator, int timeout){
+	
+	   
+	   List<WebElement> list = waitforvisibilityofallelements(locator, timeout);
+		List<String> text = new ArrayList<String>();
+		for(WebElement x : list) {
+			
+			text.add(x.getAttribute("innnerText"));
+		}
+	   
+	   
+	   
+	   return text;
+	   
+	   
+   }
+	
 	//Actions
 	
 	public void doActionssendkeys(WebDriver driver, By locator, String value) {
@@ -110,9 +170,26 @@ public class Elementutil {
 		
 	}
 	
+	public void navigatetoelement(By form, WebDriver driver) {
+		Actions act = new Actions(driver);
+		act.moveToElement(findelement(form)).build().perform();
+		
+	}
+	
+	
+	
+
+	
 	///click
 	
-	
+	  public void clickonelement(By ele) {
+		  
+		  
+		  findelement(ele).click();
+		  
+		  
+		  
+	  }
 	
 	
 	/////wait/////
@@ -131,5 +208,9 @@ public class Elementutil {
          return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 		
 	}
+
+
+
+	
 
 }
