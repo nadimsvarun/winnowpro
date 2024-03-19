@@ -13,7 +13,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverClass {
 	
-	public WebDriver driver;
+	public static WebDriver driver;
 	public  Properties prop;
 	
 	public WebDriver initializeDriver(Properties prop2) {
@@ -44,6 +44,11 @@ public class DriverClass {
 		driver.manage().window().maximize();
 		System.out.println(prop2.getProperty("url"));
 		driver.get(prop2.getProperty("url"));
+		return driver;
+	}
+	
+	public static WebDriver getdriver() {
+		
 		return driver;
 	}
 	
