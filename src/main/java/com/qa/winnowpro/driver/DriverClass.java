@@ -57,7 +57,8 @@ public class DriverClass {
 		prop = new Properties();
 		FileInputStream fil;
 		try {
-			fil = new FileInputStream(".\\src\\test\\resources\\Config\\config.properties");
+			fil = new FileInputStream(System.getProperty("user.dir")+"/src/test/resources/Config/config.properties");
+			//fil = new FileInputStream(".\\src\\test\\resources\\Config\\config.properties");
 		
 			prop.load(fil);
 			

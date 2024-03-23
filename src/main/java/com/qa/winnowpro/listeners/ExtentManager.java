@@ -24,7 +24,7 @@ public class ExtentManager {
 	public static ExtentReports extentreport;
 	public ExtentTest test;
 	
-	private static final String OUTPUT_FOLDER = ".//reports//";
+	private static final String OUTPUT_FOLDER = System.getProperty("user.dir")+"/reports/";
 	private static final String FILE_NAME = "TestExecutionReport.html";
 	
 	public static ExtentReports createinstance() {
