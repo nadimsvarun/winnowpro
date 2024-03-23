@@ -8,6 +8,7 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 
 import com.qa.winnowpro.driver.DriverClass;
+import com.qa.winnowpro.listeners.ExtentManager;
 import com.qa.winnowpro.pages.ContactUsPage;
 import com.qa.winnowpro.pages.LandingPage;
 import com.qa.winnowpro.pages.SolutionsPage;
@@ -21,6 +22,7 @@ public class BaseTest {
 	protected SolutionsPage sp;
 	protected ContactUsPage cp;
 	Properties prop;
+	
 
 	
 	@BeforeTest

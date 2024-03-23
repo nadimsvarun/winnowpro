@@ -4,7 +4,7 @@
 	<listeners>
 		
 		<listener class-name="com.qa.winnowpro.listeners.ExtentListener"></listener>
-	
+	    <listener class-name="com.qa.winnowpro.listeners.Allurereport"></listener>
 
 	</listeners>
   <test name="Landing Page Test">

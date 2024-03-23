@@ -1,6 +1,7 @@
 package com.qa.winnowpro.listeners;
 
 import java.io.File;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -9,7 +10,8 @@ import java.util.Date;
 
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebDriver;
+
 import org.openqa.selenium.io.FileHandler;
 
 import com.aventstack.extentreports.ExtentReports;
@@ -18,7 +20,11 @@ import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 import com.qa.winnowpro.driver.DriverClass;
 
+
+
 public class ExtentManager {
+	
+	
 	
 	public static  ExtentSparkReporter sparkreporter;
 	public static ExtentReports extentreport;
@@ -64,16 +70,16 @@ public class ExtentManager {
 	
 	public static String takescreenshot() {
 		
-		File scrFile = null;
-		try {
-			scrFile = ((TakesScreenshot) DriverClass.getdriver()).getScreenshotAs(OutputType.FILE);
-		} catch (WebDriverException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	File scrFile = null ;
+	
+				try {
+					scrFile = ((TakesScreenshot) DriverClass.getdriver()).getScreenshotAs(OutputType.FILE);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+				}
 
 		Date d = new Date();
-		screenshotpath = System.getProperty("user.dir") + "/screenshot/" + System.currentTimeMillis() + ".png";
+		screenshotpath = System.getProperty("user.dir")+"/screenshot/"+System.currentTimeMillis()+".png";
 		File destination = new File(screenshotpath);
 
 		try {
