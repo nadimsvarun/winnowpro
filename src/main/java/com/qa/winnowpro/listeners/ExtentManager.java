@@ -77,6 +77,18 @@ public class ExtentManager {
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 				}
+		
+		try {
+		String Folderpath = System.getProperty("user.dir")+"/screenshot";
+		  File directory = new File(Folderpath);
+		    if (! directory.exists()){
+		        directory.mkdir();
+		        // If you require it to make the entire directory path including parents,
+		        // use directory.mkdirs(); here instead.
+		    }
+		}catch(Exception e) {
+			
+		}
 
 		Date d = new Date();
 		screenshotpath = System.getProperty("user.dir")+"/screenshot/"+System.currentTimeMillis()+".png";
