@@ -27,5 +27,12 @@
      
     </classes>
   </test>
+   <test name="SignUp Page Test">
+    <classes>
+      
+      <class name="com.qa.winnowpro.tests.SignUpPageTest"/>
+     
+    </classes>
+  </test>
  
 </suite> <!-- Suite -->

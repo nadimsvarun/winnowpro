@@ -11,6 +11,7 @@ import com.qa.winnowpro.driver.DriverClass;
 import com.qa.winnowpro.listeners.ExtentManager;
 import com.qa.winnowpro.pages.ContactUsPage;
 import com.qa.winnowpro.pages.LandingPage;
+import com.qa.winnowpro.pages.SignUpPage;
 import com.qa.winnowpro.pages.SolutionsPage;
 
 public class BaseTest {
@@ -21,6 +22,7 @@ public class BaseTest {
 	protected LandingPage lp;
 	protected SolutionsPage sp;
 	protected ContactUsPage cp;
+	protected SignUpPage signup;
 	Properties prop;
 	
 

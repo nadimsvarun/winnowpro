@@ -40,6 +40,8 @@ public class LandingPage {
 	private By contactuslink = By.linkText("CONTACT US");
 	
 	private By form = By.cssSelector("form[name='wf-form-Home-Page-Contact-Form']");
+	
+	private By signup = By.cssSelector("a#register-button");
 	// page constructor should be used
 	
 	Elementutil eutil;
@@ -103,5 +105,14 @@ public class LandingPage {
 		
 		return new ContactUsPage(driver);
 	}
+	
+	public SignUpPage clickonsignup() {
+		
+		eutil.clickonelement(signup);
+		return new SignUpPage(driver);
+		
+	}
+	
+	
 
 }
