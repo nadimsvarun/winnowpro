@@ -1,65 +1,108 @@
-pipeline{
+pipeline 
+{
+    agent any
+    
+    tools{
+    	maven 'maven'
+        }
 
-agent any
-
-stages{
-
-   stage("Build"){
-   
-   steps{
-   
-   echo("Build the report")
-   
-   }
-}
- stage("Deploy to dev"){
-   
-   steps{
-   
-   echo("deploying to dev")
-   
-   }
-}
- stage("Deploy to QA"){
-   
-   steps{
-   
-   echo("deploying to QA")
-   
-   }
-}
- stage("Run regression automation cases"){
-   
-   steps{
-   
-   echo("Run regression automation cases")
-   
-   }
-}
- stage("Deploy to stage"){
-   
-   steps{
-   
-   echo("Deploying to staging")
-   
-   }
-}
-stage("Run sanity automation"){
-   
-   steps{
-   
-   echo("Run sanity automation cases")
-   
-   }
-}
-stage("Deploy to Prod"){
-   
-   steps{
-   
-   echo("deploying to prod")
-   
-   }
-}
-
-}
+    stages 
+    {
+        stage('Build') 
+        {
+            steps
+            {
+                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                 sh "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+            post 
+            {
+                success
+                {
+                    junit '**/target/surefire-reports/TEST-*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
+            }
+        }
+        
+        
+        
+        stage("Deploy to QA"){
+            steps{
+                echo("deploy to qa")
+            }
+        }
+        
+        
+                
+        stage('Regression Automation Test') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/nadimsvarun/winnowpro.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=testng.xml"
+                    
+                }
+            }
+        }
+                
+     
+        stage('Publish Allure Reports') {
+           steps {
+                script {
+                    allure([
+                        includeProperties: false,
+                        jdk: '',
+                        properties: [],
+                        reportBuildPolicy: 'ALWAYS',
+                        results: [[path: '/allure-results']]
+                    ])
+                }
+            }
+        }
+        
+        
+        stage('Publish Extent Report'){
+            steps{
+                     publishHTML([allowMissing: false,
+                                  alwaysLinkToLastBuild: false, 
+                                  keepAll: true, 
+                                  reportDir: 'reports', 
+                                  reportFiles: 'TestExecutionReport.html', 
+                                  reportName: 'HTML Regression Extent Report', 
+                                  reportTitles: ''])
+            }
+        }
+        
+        stage("Deploy to Stage"){
+            steps{
+                echo("deploy to Stage")
+            }
+        }
+        
+        stage('Sanity Automation Test') {
+            steps {
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+                    git 'https://github.com/nadimsvarun/winnowpro.git'
+                    sh "mvn clean test -Dsurefire.suiteXmlFiles=testng.xml"
+                    
+                }
+            }
+        }
+        
+        
+        
+        stage('Publish sanity Extent Report'){
+            steps{
+                     publishHTML([allowMissing: false,
+                                  alwaysLinkToLastBuild: false, 
+                                  keepAll: true, 
+                                  reportDir: 'reports', 
+                                  reportFiles: 'TestExecutionReport.html', 
+                                  reportName: 'HTML Sanity Extent Report', 
+                                  reportTitles: ''])
+            }
+        }
+        
+        
+    }
 }
