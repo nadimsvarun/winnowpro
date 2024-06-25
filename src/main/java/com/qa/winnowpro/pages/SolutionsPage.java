@@ -21,10 +21,9 @@ public class SolutionsPage {
 	Elementutil eutil;
 
  private By letstalk = By.cssSelector("div.main-section>div:nth-child(1)>div>div:nth-child(1)>a");
- private By painpoints = By.xpath("(//h3[contains(text(),'select your pain points')]/following-sibling::div[2])/div/a/h3");
+ private By painpoints = By.xpath("//h3[contains(text(),'select your pain points')]/following-sibling::div[2]//div/a/h3");
  private By clickhomepage = By.cssSelector("div.new-header>div>div:nth-child(1)>a");
- private By painpointsheader = By.cssSelector("div.main-section>div:nth-child(5)>div>h3:nth-child(4)");	
- 
+ private By painpointsheader = By.xpath("//h3[contains(text(),'select your pain points')]");
  
  public SolutionsPage(WebDriver driver) {
 		// TODO Auto-generated constructor stub
@@ -51,8 +50,8 @@ public class SolutionsPage {
 		List<String> text = new ArrayList<String>();
 		for(WebElement x : list) {
 			
-			System.out.println(x.getText());
-			text.add(x.getText());
+			System.out.println(x.getAttribute("innerHTML"));
+			text.add(x.getAttribute("innerHTML"));
 		}
 	   
 	   
@@ -75,8 +74,8 @@ public class SolutionsPage {
 	
 	public void movetopainpointsheader() {
 		
-		eutil.navigatetoelement(painpointsheader, driver);
-		
+		//eutil.navigatetoelement(painpointsheader, driver);
+		eutil.movetoelementjs(painpointsheader, driver);
 		
 	}
 	

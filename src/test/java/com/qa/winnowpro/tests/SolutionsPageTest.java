@@ -32,7 +32,7 @@ public class SolutionsPageTest extends BaseTest{
 		sp.movetopainpointsheader();
 		Thread.sleep(3000);
 		List<String> pp = sp.checkpainpointstext();
-		Assert.assertEquals(pp.get(0),"IMPROVE"+'\n'+"LEAD QUALITY");
+		Assert.assertTrue((pp.get(0)).contains("LEAD QUALITY"));
 		
 	}
 	

@@ -8,6 +8,7 @@
 
 	</listeners>
   <test name="Landing Page Test">
+	  <parameter name="browser" value="chrome"></parameter>
     <classes>
       <class name="com.qa.winnowpro.tests.LandingPageTest"/>
       
@@ -15,12 +16,14 @@
   </test> <!-- Test -->
   
   <test name="Solutions Page Test">
+	  <parameter name="browser" value="firefox"></parameter>
     <classes>
       
       <class name="com.qa.winnowpro.tests.SolutionsPageTest"/>
     </classes>
     </test>
     <test name="Contact Page Test">
+		<parameter name="browser" value="edge"></parameter>
     <classes>
       
       <class name="com.qa.winnowpro.tests.ContactUsPageTest"/>
@@ -28,6 +31,7 @@
     </classes>
   </test>
    <test name="SignUp Page Test">
+	   <parameter name="browser" value="chrome"></parameter>
     <classes>
       
       <class name="com.qa.winnowpro.tests.SignUpPageTest"/>
